@@ -17,6 +17,9 @@ export class HttpService {
   deleteTask(id: string){
     return this._http.delete('/tasks'+id);
   }
+  postToServer(num){
+    return this._http.post('/tasks', num);
+  }
   
 }
 

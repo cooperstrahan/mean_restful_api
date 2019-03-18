@@ -9,8 +9,10 @@ import { HttpService } from './http.service';
 
 export class AppComponent implements OnInit {
   title = 'public';
-  tasks: any;
+  tasks: any = [];
   third_task: any;
+  show = false;
+  this_show: any;
 
   constructor(private _httpService: HttpService){
     this.tasks = [];
@@ -18,7 +20,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(){
-    this.getTasksFromService();
     this.getTaskFromService();
   } 
   
@@ -36,4 +37,13 @@ export class AppComponent implements OnInit {
     });
   }
 
+  onButtonClick(): void { 
+    console.log(`Click event is working`);
+    this.getTasksFromService();
+  }
+
+  onShowClick(task): void {
+    this.show = !this.show;
+    this.this_show = task;
+  }
 }

@@ -3,12 +3,17 @@
   <h1>
     Restful Tasks API
   </h1>
-  <h2>All the tasks: </h2>
-  <p>{{tasks[0]['description']}}</p>
-  <p>{{tasks[1]['description']}}</p>
-  <p>{{tasks[2]['description']}}</p>
-  <h2>The third task: </h2>
-  <p>{{third_task['description']}}</p>
+  <h2> All the tasks: </h2>
+  <div *ngFor="let task of tasks">
+    <table style="width: 300px; margin: 0px auto;">
+      <td>{{ task.title }}</td>
+      <td><button (click)="onShowClick(task)" >Show!</button></td>
+    </table>
+    <p *ngIf="this_show == task">{{ task.description }}</p>
+  </div>
+  
+
+  <button (click)="onButtonClick()" >Display All Tasks</button>
 </div>
 
 <router-outlet></router-outlet>
