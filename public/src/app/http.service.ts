@@ -15,11 +15,13 @@ export class HttpService {
     return this._http.get('/tasks/'+id);
   }
   deleteTask(id: string){
-    return this._http.delete('/tasks'+id);
+    return this._http.delete('/tasks/'+id);
   }
-  postToServer(num){
-    return this._http.post('/tasks', num);
+  addTask(newtask){
+    return this._http.post('/tasks', newtask);
   }
-  
+  updateTask(id: String, editTask){
+    return this._http.put('/tasks/'+id, editTask);
+  } 
 }
 

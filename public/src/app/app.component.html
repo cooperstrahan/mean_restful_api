@@ -3,17 +3,38 @@
   <h1>
     Restful Tasks API
   </h1>
+  <form (submit)="createTaskFromService()">
+    <h2>New Tasks</h2>
+    <label>Task title:</label>
+    <input type="text" name="newTask.title" [(ngModel)]="newTask.title">
+    <label>Task description:</label>
+    <input type="text" name="newTask.description" [(ngModel)]="newTask.description">
+    <button>Create Task</button>
+  </form>
   <h2> All the tasks: </h2>
   <div *ngFor="let task of tasks">
-    <table style="width: 300px; margin: 0px auto;">
-      <td>{{ task.title }}</td>
-      <td><button (click)="onShowClick(task)" >Show!</button></td>
+    <table class="blackbox">
+      <tr>
+        <td>Title: {{ task.title }}</td>
+        <td><button (click)="displayEditForm(task)" >Edit</button></td>
+      </tr>
+      <tr>
+        <td>Description: {{ task.description }}</td>
+        <td><button (click)="deleteTaskFromService(task)">Delete</button></td>
+      </tr>
     </table>
-    <p *ngIf="this_show == task">{{ task.description }}</p>
+    <div *ngIf="this_task == task" class="right">
+      <h2>Edit A Task</h2>
+      <form (submit)="updateTaskFromService(task)" class="blackbox">
+        <label>Task title:</label>
+        <input type="text" name="this_task.title" [(ngModel)]="this_task.title">
+        <label>Task description:</label>
+        <input type="text" name="this_task.description" [(ngModel)]="this_task.description">
+        <button>Update Task</button>
+      </form>
+    </div>
+    
   </div>
-  
-
-  <button (click)="onButtonClick()" >Display All Tasks</button>
 </div>
 
 <router-outlet></router-outlet>

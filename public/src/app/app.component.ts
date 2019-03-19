@@ -11,8 +11,8 @@ export class AppComponent implements OnInit {
   title = 'public';
   tasks: any = [];
   third_task: any;
-  show = false;
-  this_show: any;
+  newTask: any;
+  this_task: any;
 
   constructor(private _httpService: HttpService){
     this.tasks = [];
@@ -20,7 +20,10 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(){
+    this.getTasksFromService();
     this.getTaskFromService();
+    this.newTask = {title: "", description: ""}
+    this.this_task = {title: "", description: ""}
   } 
   
   getTasksFromService(){
@@ -37,13 +40,33 @@ export class AppComponent implements OnInit {
     });
   }
 
-  onButtonClick(): void { 
-    console.log(`Click event is working`);
+  createTaskFromService() {
+    this._httpService.addTask(this.newTask)
+    .subscribe(data => {
+      console.log(data, "Input into the database");
+    });
+    this.newTask = {title: "", description: ""}
     this.getTasksFromService();
   }
 
-  onShowClick(task): void {
-    this.show = !this.show;
-    this.this_show = task;
+  displayEditForm(task){
+    this.this_task = task;
+  }
+
+  updateTaskFromService(task) {
+    this._httpService
+    .updateTask(task._id, task)
+    .subscribe(data => {
+      console.log("updated", data);
+    });
+    // this.getTasksFromService();
+  }
+
+  deleteTaskFromService(task){
+    this._httpService.deleteTask(task._id)
+    .subscribe(data => {
+      console.log("deleted", data);
+    });
+    this.getTasksFromService();
   }
 }
